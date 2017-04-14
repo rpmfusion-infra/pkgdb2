@@ -155,8 +155,8 @@ class RequestPackageForm(wtf.Form):
         'Description',
     )
     review_url = wtforms.TextField(
-        'Ticket number or URL',
-        [wtforms.validators.Required()]
+        'Ticket number',
+        [wtforms.validators.Required(), is_number]
     )
     branches = wtforms.SelectMultipleField(
         'Collection',
