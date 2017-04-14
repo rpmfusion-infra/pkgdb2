@@ -664,7 +664,7 @@ def api_dead_package(pkg_name, clt_name, namespace=None):
     if namespace is not None:
         pkg_name = '%s/%s' % (namespace, pkg_name)
     req = requests.get(
-        'http://pkgs.fedoraproject.org/cgit/%s.git/plain/'
+        'http://pkgs.rpmfusion.org/cgit/%s.git/plain/'
         'dead.package?h=%s' % (pkg_name, clt_name)
     )
 
@@ -760,21 +760,21 @@ def api_pkgrequest(bzid):
         return jsonout
 
     # Check component
-    if bug.component != 'Package Review':
+    if bug.component != 'Review Request':
         httpcode = 400
         output['output'] = 'notok'
         output['error'] = 'Bugzilla ticket does not correspond '\
             'to a Review Request'
 
     # Check product
-    if bug.product != 'Fedora':
+    if bug.product != 'Package Reviews':
         httpcode = 400
         output['output'] = 'notok'
-        output['error'] = 'Bugzilla ticket was not open against Fedora '\
+        output['error'] = 'Bugzilla ticket was not open against Package Reviews '\
             'but: {0}'.format(bug.product)
 
     # Check if the bug is assigned
-    if bug.assigned_to in ['', None, 'nobody@fedoraproject.org']:
+    if bug.assigned_to in ['', None, 'nobody@rpmfusion.org']:
         httpcode = 400
         output['output'] = 'notok'
         output['error'] = 'Bugzilla ticket is not assigned to anyone'
