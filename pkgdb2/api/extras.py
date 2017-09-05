@@ -831,12 +831,14 @@ def api_pkgrequest(bzid):
     if httpcode == 200:
         pkg, summary = tmp.split(' - ', 1)
         url = bug.weburl
+        ns = bug.cf_namespace
         if 'show_bug.cgi?id=' in url:
             url = url.replace('show_bug.cgi?id=', '')
         output = {
             'name': pkg.strip(),
             'summary': summary.strip(),
             'review_url': url,
+            'namespace': ns,
         }
 
     jsonout = flask.jsonify(output)
