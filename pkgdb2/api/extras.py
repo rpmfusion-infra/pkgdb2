@@ -779,6 +779,12 @@ def api_pkgrequest(bzid):
         output['output'] = 'notok'
         output['error'] = 'Bugzilla ticket is not assigned to anyone'
 
+    # Check the namespace
+    if bug.cf_namespace != ['free']:
+        if bug.cf_namespace != ['nonfree']:
+            output['output'] = 'notok'
+            output['error'] = 'Bugzilla ticket namespace is not set'
+
     # Check if the review was approved and by whom
     error = None
     flag_set = False
